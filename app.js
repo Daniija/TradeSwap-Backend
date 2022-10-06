@@ -8,6 +8,7 @@ require('dotenv').config();
 // 1) MIDDLEWARES
 app.use(express.json());
 
+
 app.use(cors(['*']))
 
 // 2) ROUTES
@@ -18,9 +19,31 @@ const DB_CONN = process.env.NODE_ENV === "production"
     : process.env.DATABASE;
 // const DB_CONN = process.env.DATABASE;
 
-mongoose.connect(DB_CONN).then((conn) => {
-  console.log("Successfully connected to Tradeswap database");
-});
+
+// Function to start db connection
+const database = () => {
+    // required connection params
+    const connectionParams = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
+
+    try {
+        //Connect to collection on mongodb atlas
+        mongoose.connect( process.env.DATABASE, connectionParams)
+        console.log( "Successfully Connected to Tradeswap Database");
+
+    } catch (err) {
+        console.error( err)
+    }
+}
+
+database();
+
+
+// mongoose.connect(DB_CONN).then((conn) => {
+//   console.log("Successfully connected to Tradeswap database");
+// });
 
 
 const port = process.env.PORT || 3000;
