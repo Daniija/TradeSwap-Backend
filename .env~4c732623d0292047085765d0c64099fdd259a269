@@ -1,0 +1,5 @@
+NODE_ENV=development
+PORT=3000
+DATABASE="mongodb+srv://sherman:Sh3rmAn@cluster0.zz7wz6z.mongodb.net/tradeswap?retryWrites=true&w=majority"
+DATABASE_PRODUCTION=
+DATABASE_PASSWORD=
