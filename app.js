@@ -8,6 +8,7 @@ require('dotenv').config();
 // 1) MIDDLEWARES
 app.use(express.json());
 
+
 app.use(cors(['*']))
 
 // 2) ROUTES
@@ -38,6 +39,7 @@ const database = () => {
 }
 
 database();
+
 
 // mongoose.connect(DB_CONN).then((conn) => {
 //   console.log("Successfully connected to Tradeswap database");
