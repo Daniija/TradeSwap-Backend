@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require("mongoose");
 const cors = require('cors');
 const roleRouter = require('./routes/roleRoute');
+const userRouter = require('./routes/userRoute');
+const authRouter = require('./routes/authRoute');
 const app = express();
 require('dotenv').config();
 
@@ -13,6 +15,8 @@ app.use(cors(['*']))
 
 // 2) ROUTES
 app.use('/api/v1/roles',roleRouter);
+app.use('/api/v1/users',userRouter);
+app.use('/api/v1/auth',authRouter);
 
 const DB_CONN = process.env.NODE_ENV === "production"
     ? process.env.DATABASE_PRODUCTION.replace("<PWD>",process.env.DATABASE_PASSWORD)
