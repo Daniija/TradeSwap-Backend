@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require("mongoose");
 const cors = require('cors');
 const roleRouter = require('./routes/roleRoute');
+const userRouter = require('./routes/userRoute');
+const authRouter = require('./routes/authRoute');
+const categoryRouter = require('./routes/categoryRoute');
 const app = express();
 require('dotenv').config();
 
@@ -13,6 +16,9 @@ app.use(cors(['*']))
 
 // 2) ROUTES
 app.use('/api/v1/roles',roleRouter);
+app.use('/api/v1/users',userRouter);
+app.use('/api/v1/auth',authRouter);
+app.use('/api/v1/category',categoryRouter);
 
 const DB_CONN = process.env.NODE_ENV === "production"
     ? process.env.DATABASE_PRODUCTION.replace("<PWD>",process.env.DATABASE_PASSWORD)
@@ -34,7 +40,7 @@ const database = () => {
         console.log( "Successfully Connected to Tradeswap Database");
 
     } catch (err) {
-        console.error( err)
+        console.error(err)
     }
 }
 
@@ -48,5 +54,5 @@ database();
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}...`);
+    console.log(`Server is listening on port ${port}...`);
 });
