@@ -91,12 +91,12 @@ class TradesmanController{
            let tradesman = await Tradesman.find({ categoryID: req.params.id }).populate("categoryID");
            JSONResponse.success(
               res,
-              "This category is empty",
+              "Category data retrieved successfully",
               tradesman,
-              201
+              200
            );
         } catch (error) {
-           JSONResponse.error(res, "Error, unable to category", error, 400);
+           JSONResponse.error(res, "Error, no data found", error, 400);
         }
     };
 }

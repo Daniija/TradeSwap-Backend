@@ -5,7 +5,6 @@ const tradesmanController = require("./../controllers/tradesmanController");
 router
    .route("/")
    .get(tradesmanController.getAllTradesman)
-   .get(tradesmanController.findTradesmanByCategory)
    .post(tradesmanController.createTradesman);
 
 router
@@ -13,5 +12,9 @@ router
    .get(tradesmanController.getTradesmanById)
    .patch(tradesmanController.updateTradesman)
    .delete(tradesmanController.deleteTradesman);
+
+router
+   .route("/category-search/:id")
+   .get(tradesmanController.findTradesmanByCategory);
 
 module.exports = router;
