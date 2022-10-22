@@ -23,7 +23,7 @@ let tradesmanSchema = new Schema(
     categoryID: {
         type: Schema.Types.ObjectId,
         required: [true, "No trade was selected"], 
-        ref: "categories",
+        ref: "category",
     },
     parishID: { 
         type: Schema.Types.ObjectId, 
