@@ -17,4 +17,8 @@ router
    .route("/category-search/:id")
    .get(tradesmanController.findTradesmanByCategory);
 
+router
+   .route("/parish-search/:id")
+   .get(tradesmanController.findTradesmanByParish);
+
 module.exports = router;

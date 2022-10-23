@@ -6,6 +6,7 @@ const userRouter = require('./routes/userRoute');
 const authRouter = require('./routes/authRoute');
 const categoryRouter = require('./routes/categoryRoute');
 const tradesmanRouter = require('./routes/tradesmanRoute');
+const parishRouter = require('./routes/parishRoute');
 const app = express();
 require('dotenv').config();
 
@@ -21,6 +22,7 @@ app.use('/api/v1/users',userRouter);
 app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/category',categoryRouter);
 app.use('/api/v1/tradesman',tradesmanRouter);
+app.use('/api/v1/parish',parishRouter);
 
 const DB_CONN = process.env.NODE_ENV === "production"
     ? process.env.DATABASE_PRODUCTION.replace("<PWD>",process.env.DATABASE_PASSWORD)
