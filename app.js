@@ -16,6 +16,7 @@ app.use(express.json());
 
 app.use(cors(['*']))
 
+
 // 2) ROUTES
 app.use('/api/v1/roles',roleRouter);
 app.use('/api/v1/users',userRouter);
