@@ -1,5 +1,6 @@
 const Tradesman = require("../models/tradesmanModel");
 const { JSONResponse } = require("../utilities/jsonResponse");
+const { ObjectId } = require("mongoose").Types;
 
 class TradesmanController {
    static createTradesman = async (req, res, next) => {
@@ -27,7 +28,7 @@ class TradesmanController {
 
    static getAllTradesman = async (req, res, next) => {
       try {
-         let tradesman = await Tradesman.find().populate("categoryID");
+         let tradesman = await Tradesman.find().populate("categoryID parishID");
          JSONResponse.success(
             res,
             "Successfully retrieved all tradesmen",
@@ -47,7 +48,7 @@ class TradesmanController {
          let tradesman = await Tradesman.findById(id);
          if (!tradesman) throw new Error("tradesman not found with this id");
          tradesman.password = undefined;
-         JSONResponse.success(res, "Retrieved tradesman info", user, 200);
+         JSONResponse.success(res, "Retrieved tradesman info", tradesman, 200);
       } catch (error) {
          JSONResponse.error(res, "Unable to find tradesman", error, 404);
       }
@@ -67,11 +68,11 @@ class TradesmanController {
                200
             );
          }
-         let tradesman = await Tradesman.findOneAndUpdate({ _id: id }, data, {
+         let tradesman = await Tradesman.findByIdAndUpdate({ _id: id }, data, {
             new: true,
          });
          if (!tradesman) throw new Error("Tradesman not found with the ID");
-         JSONResponse.success(res, "Tradesman updated successfully", user, 200);
+         JSONResponse.success(res, "Tradesman updated successfully", tradesman, 200);
       } catch (error) {
          JSONResponse.error(res, "Unable to update tradesman", error, 404);
       }
@@ -85,7 +86,7 @@ class TradesmanController {
          let tradesman = await Tradesman.findByIdAndDelete(id);
          if (!tradesman)
             throw new Error("Tradesman does not exist with this ID");
-         JSONResponse.success(res, "Successfully deleted tradesman", user, 203);
+         JSONResponse.success(res, "Successfully deleted tradesman", tradesman, 203);
       } catch (error) {
          JSONResponse.error(res, "Unable to delete tradesman", error, 404);
       }
@@ -95,10 +96,26 @@ class TradesmanController {
       try {
          let tradesman = await Tradesman.find({
             categoryID: req.params.id,
-         }).populate("categoryID");
+         }).populate("categoryID parishID");
          JSONResponse.success(
             res,
             "Category data retrieved successfully",
+            tradesman,
+            200
+         );
+      } catch (error) {
+         JSONResponse.error(res, "Error, no data found", error, 400);
+      }
+   };
+
+   static findTradesmanByParish = async (req, res, next) => {
+      try {
+         let tradesman = await Tradesman.find({
+            parishID: req.params.id,
+         }).populate("parishID categoryID");
+         JSONResponse.success(
+            res,
+            "Parish data retrieved successfully",
             tradesman,
             200
          );

@@ -1,5 +1,6 @@
 const Category = require("../models/categoryModel");
 const { JSONResponse } = require("../utilities/jsonResponse");
+const { ObjectId } = require("mongoose").Types;
 
 class CategoryController {
    static createCategory = async (req, res, next) => {
@@ -64,8 +65,10 @@ class CategoryController {
    static deleteCategory = async (req, res, next) => {
       try {
          let id = req.params.id;
-         if (!Objectid.isValid(id)) throw new Error("Id Doesnt Match");
-         let category = await category.findByIdAndDelete(id);
+         if (Category.length >= 1)
+            throw new Error("Cannot delete a category that contains data");
+         if (!ObjectId.isValid(id)) throw new Error("Id Doesnt Match");
+         let category = await Category.findByIdAndRemove(id);
          if (!category) throw new Error("Category doesnt exist");
          JSONResponse.success(
             res,
@@ -84,7 +87,7 @@ class CategoryController {
          if (!ObjectId.isValid(id)) throw new Error("CategoryID isnt valid");
          let category = await Category.findById(id);
          if (!category) throw new Error("Category not found");
-         JSONResponse.success(res, "Retrieved user info", user, 200);
+         JSONResponse.success(res, "Retrieved user info", category, 200);
       } catch (error) {
          JSONResponse.error(res, "Unable to find user", error, 404);
       }

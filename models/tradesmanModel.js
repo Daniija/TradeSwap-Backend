@@ -16,6 +16,11 @@ let tradesmanSchema = new Schema(
         required: [true, "No email address was provided"],
         unique: [true, "Email already exist in the database"],
     },
+    phone_number: { 
+        type: String, 
+        required: [true, "No phone number was provided"],
+        unique: [true, "number already exist in the database"],
+    },
     password: { 
         type: String,  
         required: [true, "No password was provided"], 
