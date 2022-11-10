@@ -12,11 +12,17 @@ const userSchema = new Schema({
    username: {
       type: String,
       required: [true, "Username must be present in order to be valid"],
+      unique: [true, "This username is already registered"],
    },
    password: {
       type: String,
       required: [true, "Password must be present in order to be valid"],
    },
+   parishID: { 
+      type: Schema.Types.ObjectId, 
+      required: true,
+      ref: "parish"
+  },
 });
 
 module.exports = model("User", userSchema);

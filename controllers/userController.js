@@ -21,7 +21,7 @@ class UserController {
    };
    static getAllUsers = async (req, res, next) => {
       try {
-         let users = await User.find();
+         let users = await User.find().populate("parishID");
          JSONResponse.success(
             res,
             "Retrieved all users successfully",
@@ -78,6 +78,22 @@ class UserController {
          JSONResponse.success(res, "Retrieved user info", user, 200);
       } catch (error) {
          JSONResponse.error(res, "Unable to find user", error, 404);
+      }
+   };
+
+   static finduserByParish = async (req, res, next) => {
+      try {
+         let user = await User.find({
+            parishID: req.params.id,
+         }).populate("parishID");
+         JSONResponse.success(
+            res,
+            "Parish data retrieved successfully",
+            user,
+            200
+         );
+      } catch (error) {
+         JSONResponse.error(res, "Error, no data found", error, 400);
       }
    };
 }
