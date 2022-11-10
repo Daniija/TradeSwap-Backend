@@ -13,6 +13,10 @@ const userSchema = new Schema({
       type: String,
       required: [true, "Username must be present in order to be valid"],
    },
+   password: {
+      type: String,
+      required: [true, "Password must be present in order to be valid"],
+   },
 });
 
 module.exports = model("User", userSchema);
