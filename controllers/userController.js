@@ -1,6 +1,6 @@
 const User = require("../models/userModel");
 const { JSONResponse } = require("../utilities/jsonResponse");
-
+const { ObjectId } = require("mongoose").Types;
 class UserController {
    static createUser = async (req, res, next) => {
       try {
