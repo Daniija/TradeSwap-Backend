@@ -13,4 +13,9 @@ router
    .patch(userController.updateUser)
    .delete(userController.deleteUser);
 
+router
+   .route("/parish-search/:id")
+   .get(userController.finduserByParish);
+
+
 module.exports = router;
