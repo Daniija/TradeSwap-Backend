@@ -21,7 +21,7 @@ class UserController {
    };
    static getAllUsers = async (req, res, next) => {
       try {
-         let users = await User.find().populate("parishID categoryID");
+         let users = await User.find().populate("parishID categoryID roleID");
          JSONResponse.success(
             res,
             "Retrieved all users successfully",
