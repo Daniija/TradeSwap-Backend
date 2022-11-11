@@ -4,21 +4,45 @@ const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 
 const authSchema = new Schema({
+   first_name: {
+      type: String,
+      required: [true, "No first name was provided"],
+   },
+   last_name: {
+      type: String,
+      required: [true, "No last name was provided"],
+   },
    username: {
       type: String,
+      required: true,
       unique: [true, "Username already exist in the database"],
-   },
-   email: {
-      type: String,
-      unique: [true, "Email already exist in the database"],
    },
    password: {
       type: String,
       required: [true, "Password was not provided"],
    },
-   isAdmin: {
-      type: Boolean,
-      default: false,
+   roleID:{
+      type: Schema.Types.ObjectId, 
+      required: true,
+      ref: "roles"
+   },
+   categoryID: {
+      type: Schema.Types.ObjectId,
+      ref: "category",
+   },
+   parishID: { 
+      type: Schema.Types.ObjectId, 
+      required: true,
+      ref: "parish"
+   },
+   // isAdmin: {
+   //    type: Boolean,
+   //    default: false,
+   // },
+   email: {
+      type: String,
+      required:[true],
+      unique: [true, "Email already exist in the database"],
    },
 });
 
@@ -31,7 +55,6 @@ authSchema.pre("save", async function () {
       if (!account)
          return Promise.reject(new Error("No data found for this username"));
       this.password = await bcrypt.hash(this.password, 10);
-      console.log(this.password);
       this.isSuperAdmin = false;
    } catch (error) {
       return Promise.reject(new Error(error.message));

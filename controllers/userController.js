@@ -1,4 +1,4 @@
-const User = require("../models/userModel");
+const User = require("../models/authModel");
 const { JSONResponse } = require("../utilities/jsonResponse");
 const { ObjectId } = require("mongoose").Types;
 class UserController {
@@ -21,7 +21,7 @@ class UserController {
    };
    static getAllUsers = async (req, res, next) => {
       try {
-         let users = await User.find().populate("parishID");
+         let users = await User.find().populate("parishID categoryID");
          JSONResponse.success(
             res,
             "Retrieved all users successfully",
@@ -89,6 +89,22 @@ class UserController {
          JSONResponse.success(
             res,
             "Parish data retrieved successfully",
+            user,
+            200
+         );
+      } catch (error) {
+         JSONResponse.error(res, "Error, no data found", error, 400);
+      }
+   };
+
+   static findUserByCategory = async (req, res, next) => {
+      try {
+         let user = await User.find({
+            categoryID: req.params.id,
+         }).populate("categoryID parishID");
+         JSONResponse.success(
+            res,
+            "Category data retrieved successfully",
             user,
             200
          );
