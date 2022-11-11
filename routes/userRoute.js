@@ -17,5 +17,9 @@ router
    .route("/parish-search/:id")
    .get(userController.finduserByParish);
 
+router
+   .route("/category-search/:id")
+   .get(userController.findUserByCategory);
+
 
 module.exports = router;
