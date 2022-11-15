@@ -5,8 +5,9 @@ class UserController {
    static createUser = async (req, res, next) => {
       try {
          let data = req.body;
-         if (Object.keys(data).length == 0)
-            throw new Error("No data was passed to create user");
+         console.log(data);
+         // if (Object.keys(data).length == 0)
+         //    throw new Error("No data was passed to create user");
          let user = await new User(data).save();
          user.password = undefined;
          JSONResponse.success(
