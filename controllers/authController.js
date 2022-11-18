@@ -6,7 +6,7 @@ class AuthController {
    static authenticate = async (req, res, next) => {
       try {
          let { username, password } = req.body;
-         let user = await Auth.findOne({ username: username });
+         let user = await Auth.findOne({ username: username }).populate('roleID categoryID parishID');
          if (!user)
             throw new Error("No user present which matches the username");
          let passCheck = await user.isCorrectPassword(password);

@@ -35,10 +35,10 @@ const authSchema = new Schema({
       required: true,
       ref: "parish"
    },
-   // isAdmin: {
-   //    type: Boolean,
-   //    default: false,
-   // },
+   isAdmin: {
+      type: Boolean,
+      default: false,
+   },
    email: {
       type: String,
       required:[true],
