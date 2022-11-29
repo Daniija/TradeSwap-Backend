@@ -17,9 +17,21 @@ const authSchema = new Schema({
       required: true,
       unique: [true, "Username already exist in the database"],
    },
+   email: {
+      type: String,
+      required:[true],
+      unique: [true, "Email already exist in the database"],
+   },
    password: {
       type: String,
       required: [true, "Password was not provided"],
+   },
+   phone_number:{
+      type:String,
+      required: [true],
+   },
+   work_rate: {
+      type:String,
    },
    roleID:{
       type: Schema.Types.ObjectId, 
@@ -38,12 +50,7 @@ const authSchema = new Schema({
    isAdmin: {
       type: Boolean,
       default: false,
-   },
-   email: {
-      type: String,
-      required:[true],
-      unique: [true, "Email already exist in the database"],
-   },
+   }, 
 });
 
 // Middleware function to execute and hash password before saving user into the database.
