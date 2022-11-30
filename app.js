@@ -13,8 +13,7 @@ require('dotenv').config();
 // 1) MIDDLEWARES
 app.use(express.json());
 
-app.options('*', cors())
-// app.use(cors(['*']))
+app.use(cors(['*']))
 
 
 // 2) ROUTES
