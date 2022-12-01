@@ -73,7 +73,7 @@ class UserController {
          let id = req.params.id;
          if (!ObjectId.isValid(id))
             throw new Error("Id is not a valid user profile in database");
-         let user = await User.findById(id);
+         let user = await User.findById(id).populate("parishID categoryID roleID");
          if (!user) throw new Error("User not found with this id");
          user.password = undefined;
          JSONResponse.success(res, "Retrieved user info", user, 200);
